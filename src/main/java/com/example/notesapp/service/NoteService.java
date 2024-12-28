@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class NoteService {
@@ -16,7 +17,7 @@ public class NoteService {
     private NoteRepository noteRepository;
     // private  final NoteRepository noteRepository;
     //    public NoteService(NoteRepository noteRepository) {
-        //        this.noteRepository = noteRepository;
+    //        this.noteRepository = noteRepository;
     //    }
 
     public List<Note> getAllNotes() {
@@ -32,7 +33,7 @@ public class NoteService {
         return noteRepository.save(note);
     }
 
-    public void deleteNoteById(Long id) {
+    public void deleteNoteById(UUID id) {
         noteRepository.deleteById(id);
     }
 }

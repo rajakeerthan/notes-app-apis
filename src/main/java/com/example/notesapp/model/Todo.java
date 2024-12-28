@@ -1,32 +1,35 @@
 package com.example.notesapp.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.sql.Timestamp;
 import java.util.UUID;
 
 @Entity
-@Table(name="note")
-@Data
+@Table(name="todo")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Note {
+public class Todo {
     @Id
-    @Column(name = "id")
+    @Column(name="id")
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @UuidGenerator(style = UuidGenerator.Style.TIME)
     private UUID id;
 
-    @Column(name = "description", columnDefinition = "TEXT")
-    private String description;
+    @Column(name="tasks", columnDefinition = "TEXT")
+    private String tasks;
 
-    @Column(name="created_by")
-    private String createdBy;
+    @Column(name="status")
+    private Boolean status;
 
-    @Column(name="timestamp")
-    private Timestamp timestamp;
+    @Column(name="due_date")
+    private Timestamp dueDate;
+
 }

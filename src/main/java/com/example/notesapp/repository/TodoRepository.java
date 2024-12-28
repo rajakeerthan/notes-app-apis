@@ -1,11 +1,19 @@
 package com.example.notesapp.repository;
 
-import com.example.notesapp.model.Note;
+
+import com.example.notesapp.model.Todo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
+//public class ToDoRepository {
+//
+//
+//}
+
 @Repository
-public interface NoteRepository extends JpaRepository<Note, UUID> {
+public interface TodoRepository extends JpaRepository<Todo, UUID> {
+
+
 }
