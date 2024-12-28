@@ -1,6 +1,7 @@
 package com.example.notesapp.service;
 
 import com.example.notesapp.dto.TodoDto;
+import com.example.notesapp.model.Note;
 import com.example.notesapp.model.Todo;
 import com.example.notesapp.model.Users;
 import com.example.notesapp.repository.TodoRepository;
@@ -34,6 +35,15 @@ public class TodoService {
         return todoRepository.save(todo);
     }
 
+    public Todo updateTodo(UUID id, UUID userId, TodoDto updatedTodoDto) {
+        Todo existingTodo = todoRepository.findByIdAndUserId(id, userId)
+                .orElseThrow(() -> new RuntimeException("Note not found or you don't have permission to edit it"));
+
+        existingTodo.setTasks(updatedTodoDto.getTasks());
+        existingTodo.setStatus(updatedTodoDto.isStatus());
+
+        return todoRepository.save(existingTodo);
+    }
 
     public List<Todo> getTodoByUserId(UUID userId){
         return todoRepository.findByUserId(userId);

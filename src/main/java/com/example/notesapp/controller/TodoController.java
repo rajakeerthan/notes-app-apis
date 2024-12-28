@@ -1,6 +1,7 @@
 package com.example.notesapp.controller;
 
 import com.example.notesapp.dto.TodoDto;
+import com.example.notesapp.model.Note;
 import com.example.notesapp.model.Todo;
 import com.example.notesapp.repository.TodoRepository;
 import com.example.notesapp.service.TodoService;
@@ -20,6 +21,12 @@ public class TodoController {
 
     @Autowired
     private TodoRepository todoRepository;
+
+    @PutMapping("/update/{id}")
+    public Todo updateTodo(@PathVariable UUID id,@RequestParam UUID userId,@RequestBody TodoDto updatedTodoDto){
+        return todoService.updateTodo(id,userId,updatedTodoDto);
+
+    }
 
 
     @PostMapping("/create-todo/{userId}")
