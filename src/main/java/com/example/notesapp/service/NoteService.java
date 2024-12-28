@@ -42,6 +42,15 @@ public class NoteService {
         return noteRepository.save(note);
     }
 
+    public Note updateNote(UUID id, UUID userId, Note updatedNote) {
+        Note existingNote = noteRepository.findByIdAndUserId(id, userId)
+                .orElseThrow(() -> new RuntimeException("Note not found or you don't have permission to edit it"));
+
+        existingNote.setDescription(updatedNote.getDescription());
+        existingNote.setCreatedBy(updatedNote.getCreatedBy());
+
+        return noteRepository.save(existingNote);
+    }
 
     public List<Note> getNotesByUserId(UUID userId){
         return noteRepository.findByUserId(userId);

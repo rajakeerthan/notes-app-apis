@@ -42,6 +42,11 @@ public class NoteController {
 
     }
 
+    @PutMapping("/update")
+    public Note updateNote(@RequestParam(required = true) UUID id, @RequestParam(required = true) UUID userId, @RequestBody Note updatedNote) {
+        return noteService.updateNote(id, userId, updatedNote);
+    }
+
     // Fetches all notes associated with the particular user .
     @GetMapping("/get-all-notes/{userId}")
     public ResponseEntity<List<Note>> getNotesByUserId(@PathVariable UUID userId) {
