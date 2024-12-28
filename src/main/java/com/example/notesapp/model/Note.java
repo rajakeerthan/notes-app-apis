@@ -17,8 +17,8 @@ import java.util.UUID;
 public class Note {
     @Id
     @Column(name = "id")
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @UuidGenerator(style = UuidGenerator.Style.TIME)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)  ---for id column(1,2,3)
+    @UuidGenerator(style = UuidGenerator.Style.TIME)  // for uuid
     private UUID id;
 
     @Column(name = "description", columnDefinition = "TEXT")
@@ -29,4 +29,8 @@ public class Note {
 
     @Column(name="timestamp")
     private Timestamp timestamp;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Users user;
 }
