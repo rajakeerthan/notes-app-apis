@@ -1,9 +1,11 @@
 package com.example.notesapp.controller;
 
+import com.example.notesapp.dto.TodoDto;
 import com.example.notesapp.model.Todo;
 import com.example.notesapp.repository.TodoRepository;
 import com.example.notesapp.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,24 +21,18 @@ public class TodoController {
     @Autowired
     private TodoRepository todoRepository;
 
-    @GetMapping()
-    public ResponseEntity<List<Todo>> getAllToDO(){
-        return ResponseEntity.ok(todoService.getAllTodo());
+
+    @PostMapping("/create-todo/{userId}")
+    public ResponseEntity<Todo> createToDo(@PathVariable UUID userId, @RequestBody TodoDto toDoDTO) {
+        Todo createdToDo = todoService.createTodo(userId, toDoDTO);
+        return new ResponseEntity<>(createdToDo, HttpStatus.CREATED);
     }
 
-    @PostMapping()
-    public ResponseEntity<Todo> createToDO(@RequestBody Todo todo){
-        return ResponseEntity.ok(todoService.createTodo(todo));
+    @GetMapping("/get-all-todo/{userId}")
+    public ResponseEntity<List<Todo>> getTodosByUserId(@PathVariable UUID userId) {
+        List<Todo> toDos = todoService.getTodoByUserId(userId);
+        return new ResponseEntity<>(toDos, HttpStatus.OK);
     }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteToDoByID(@PathVariable UUID id){
-        todoService.deletTodoByID(id);
-        return ResponseEntity.noContent().build();
-
-    }
-
-
 
 
 }

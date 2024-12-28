@@ -1,17 +1,25 @@
 package com.example.notesapp.dto;
 
+
 import lombok.*;
 
 import java.util.UUID;
 
+@Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
 @Data
-public class NotesDto {
+public class UserDto {
+
     private UUID id;
-    private String description;
-    private String createdBy;
+
+    private String username;
+
+
+    private String password;
+
+
+    private String email;
 
 }

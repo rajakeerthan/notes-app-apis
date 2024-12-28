@@ -32,4 +32,8 @@ public class Todo {
     @Column(name="due_date")
     private Timestamp dueDate;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Users user;
+
 }
