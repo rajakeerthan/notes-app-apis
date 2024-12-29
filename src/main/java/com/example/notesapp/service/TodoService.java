@@ -7,6 +7,7 @@ import com.example.notesapp.model.Users;
 import com.example.notesapp.repository.TodoRepository;
 import com.example.notesapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +26,11 @@ public class TodoService {
         return todoRepository.findAll();
     }
 
+        //TODO: implement delete functionality
+    public void deleteTodoByIdandUserId(UUID id,UUID userId){
+        todoRepository.deleteByIdAndUserId(id,userId
+        );
+    }
 
     public Todo createTodo(UUID userId,TodoDto todoDto){
         Todo todo=new Todo();
@@ -33,6 +39,7 @@ public class TodoService {
         todo.setStatus(todoDto.isStatus());
         todo.setUser(user);
         return todoRepository.save(todo);
+
     }
 
     public Todo updateTodo(UUID id, UUID userId, TodoDto updatedTodoDto) {

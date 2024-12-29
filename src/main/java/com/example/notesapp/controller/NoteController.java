@@ -42,9 +42,19 @@ public class NoteController {
 
     }
 
+
+    @DeleteMapping("/delete_note")
+    public ResponseEntity<String> deleteNotebyUser(@RequestParam UUID id,@RequestParam UUID userId){
+        noteService.deleteNoteByIdandUserId(id,userId);
+        return ResponseEntity.ok("deleted successfully");
+
+    }
+
+
     @PutMapping("/update")
-    public Note updateNote(@RequestParam(required = true) UUID id, @RequestParam(required = true) UUID userId, @RequestBody Note updatedNote) {
-        return noteService.updateNote(id, userId, updatedNote);
+    public ResponseEntity<Note> updateNote(@RequestParam(required = true) UUID id, @RequestParam(required = true) UUID userId, @RequestBody NotesDto updatedNoteDto) {
+        Note updatedNote=noteService.updateNote(id, userId, updatedNoteDto);
+        return new ResponseEntity<>(updatedNote,HttpStatus.CREATED);
     }
 
     // Fetches all notes associated with the particular user .
