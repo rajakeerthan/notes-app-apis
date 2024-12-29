@@ -1,7 +1,7 @@
 package com.example.notesapp.controller;
 
 import com.example.notesapp.dto.TodoDto;
-import com.example.notesapp.model.Note;
+
 import com.example.notesapp.model.Todo;
 import com.example.notesapp.repository.TodoRepository;
 import com.example.notesapp.service.TodoService;
@@ -22,13 +22,21 @@ public class TodoController {
     @Autowired
     private TodoRepository todoRepository;
 
+
     @PutMapping("/update/{id}")
-    public Todo updateTodo(@PathVariable UUID id,@RequestParam UUID userId,@RequestBody TodoDto updatedTodoDto){
-        return todoService.updateTodo(id,userId,updatedTodoDto);
+    public ResponseEntity<Todo> updateTodo(@PathVariable UUID id,@RequestParam UUID userId,@RequestBody TodoDto updatedTodoDto){
+        Todo updatedToDo = todoService.createTodo(userId, updatedTodoDto);
+        return new ResponseEntity<>(updatedToDo, HttpStatus.CREATED);
+        //return new ResponseEntity<>(todoService.updateTodo(id,userId,updatedTodoDto));
 
     }
+    //TODO: Delete mapping
 
-
+    @DeleteMapping("/delete-todo")
+    public ResponseEntity<String> deleteDto(@RequestParam UUID id,@RequestParam UUID userId){
+        todoService.deleteTodoByIdandUserId(id,userId);
+        return ResponseEntity.ok("deleted successfully");
+    }
     @PostMapping("/create-todo/{userId}")
     public ResponseEntity<Todo> createToDo(@PathVariable UUID userId, @RequestBody TodoDto toDoDTO) {
         Todo createdToDo = todoService.createTodo(userId, toDoDTO);
